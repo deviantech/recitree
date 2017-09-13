@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170913095543) do
+ActiveRecord::Schema.define(version: 20170913101310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,12 +43,13 @@ ActiveRecord::Schema.define(version: 20170913095543) do
 
   create_table "substeps", force: :cascade do |t|
     t.bigint "step_id"
-    t.float "quantity"
+    t.float "quantity", default: 1.0
     t.string "unit"
     t.string "item_type"
     t.integer "item_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "order"
     t.index ["step_id"], name: "index_substeps_on_step_id"
   end
 
