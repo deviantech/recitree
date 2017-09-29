@@ -1,0 +1,21 @@
+<%= link_to 'Edit', edit_recipe_path(@recipe) %> |
+<%= link_to 'Back', recipes_path %>
+
+
+<h1>Recipe: <%= @recipe.name %></h1>
+
+<% @recipe.steps.each do |step| %>
+  <h4>Step <%= step.order %>: <%= step.action.capitalize %></h4>
+  <p><%= step.notes %></p>
+  <ul>
+    <% step.components.each do |component| %>
+      <li>
+        <% if component.item.is_a?(Step) %>
+          <strong>Step <%= component.item.order %></strong>
+        <% else %>
+          <%= link_to component.item.name.capitalize, component.item %>: <%= pluralize component.quantity, component.unit  %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

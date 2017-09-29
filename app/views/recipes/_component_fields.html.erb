@@ -1,0 +1,8 @@
+<div class="nested-fields form-inline component">
+  <% if f.object.persisted? %><%= f.input :order %><% end %>
+  <%= f.input :item, collection: @recipe.steps.map {|s| ["Step #{s.order} (#{s.action})", ['Step', s.id].join('__')]} + Ingredient.all.map{|i| [i.name.capitalize, ['Ingredient', i.id].join('__')] }, prompt: "Select your item", selected: f.object.persisted? ? [f.object.item.class.name, f.object.item.id].join('__') : '' %>
+  <%= f.input :quantity %>
+  <%= f.input :unit, collection: Component::UNITS %>
+
+  <%= link_to_remove_association "remove component", f %>
+</div>

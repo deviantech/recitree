@@ -1,0 +1,33 @@
+<%= simple_form_for(@recipe, html: { class: 'form-horizontal' }) do |f| %>
+  <% if recipe.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
+
+      <ul>
+      <% recipe.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.input :name %>
+
+  <% if @recipe.persisted? %>
+    <h3>Steps</h3>
+    <div id="steps">
+      <%= f.simple_fields_for :steps do |s| %>
+        <%= render 'step_fields', f: s %>
+      <% end %>
+      <div class="links">
+        <%= link_to_add_association 'add step', f, :steps %>
+      </div>
+    </div>
+  <% end %>
+
+  <hr>
+  <div class="actions">
+    <%= f.submit 'Save & Continue Editing', class: 'btn btn-default' %>
+    <%= f.submit 'Save Recipe', class: 'btn btn-primary float-right' %>
+  </div>
+<% end %>

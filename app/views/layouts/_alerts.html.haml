@@ -1,0 +1,4 @@
+- if flash.any?
+  - flash.each do |k,msg|
+    - kind = %w(danger error failure alert).include?(k) ? :danger : k
+    .alert{class: "alert-#{kind}", role: 'alert'}= msg
