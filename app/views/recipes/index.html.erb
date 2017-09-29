@@ -1,0 +1,10 @@
+<h1>We have some recipes: <%= @recipes.count %> </h1>
+
+<ul>
+  <% @recipes.each do |recipe| %>
+    <li>
+      <%= recipe.name %>
+    </li>
+  <% end %>
+</ul>
+
