@@ -20,4 +20,5 @@
 /public/packs
 /public/packs-test
 /node_modules
-/config/database.yml
+config/database.yml
+db/*.sqlite3

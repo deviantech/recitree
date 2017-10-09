@@ -12,11 +12,8 @@
 
 ActiveRecord::Schema.define(version: 20170929115634) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "components", force: :cascade do |t|
-    t.bigint "step_id"
+    t.integer "step_id"
     t.float "quantity", default: 1.0
     t.string "unit"
     t.string "item_type"
@@ -41,7 +38,7 @@ ActiveRecord::Schema.define(version: 20170929115634) do
   end
 
   create_table "steps", force: :cascade do |t|
-    t.bigint "recipe_id"
+    t.integer "recipe_id"
     t.integer "order"
     t.integer "duration", default: 0
     t.string "duration_unit"
@@ -53,6 +50,4 @@ ActiveRecord::Schema.define(version: 20170929115634) do
     t.index ["recipe_id"], name: "index_steps_on_recipe_id"
   end
 
-  add_foreign_key "components", "steps"
-  add_foreign_key "steps", "recipes"
 end
