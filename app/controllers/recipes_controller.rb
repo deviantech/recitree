@@ -67,14 +67,14 @@ class RecipesController < ApplicationController
       @recipe = Recipe.find(params[:id])
     end
 
-    PERMITTED = [:name, steps_attributes: [:order, :action, :notes, :duration, :duration_unit, :id, :_destroy, components_attributes: [:order, :item_type, :item_id, :quantity, :unit, :id, :_destroy]]]
+    PERMITTED = [:name, steps_attributes: [:position, :action, :notes, :duration, :duration_unit, :id, :_destroy, components_attributes: [:position, :item_type, :item_id, :quantity, :unit, :id, :_destroy]]]
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def recipe_params
       @recipe_params ||= begin
         cleaned_params = convert_attribute_params_to_array params.require(:recipe)
         cleaned_params = clean_step_attributes(
-          normalize_order_params(:steps_attributes, cleaned_params)
+          normalize_position_params(:steps_attributes, cleaned_params)
         )
 
         cleaned_params.permit(PERMITTED)
@@ -105,28 +105,28 @@ class RecipesController < ApplicationController
           end
         end
 
-        normalize_order_params :components_attributes, step
+        normalize_position_params :components_attributes, step
       end
 
       raw
     end
 
-    def normalize_order_params(replace_key, raw)
+    def normalize_position_params(replace_key, raw)
       steps = (raw[replace_key] || [])
-      with_order, without_order = steps.sort_by {|s| s[:order].to_i }.partition {|s| s[:order].to_i > 0 }
+      with_position, without_position = steps.sort_by {|s| s[:position].to_i }.partition {|s| s[:position].to_i > 0 }
 
-      min_order = 0
-      with_order.each do |s|
-        s[:order] = min_order += 1
+      min_position = 0
+      with_position.each do |s|
+        s[:position] = min_position += 1
       end
 
-      max_order = with_order.any? ? with_order.last[:order] : 0
+      max_position = with_position.any? ? with_position.last[:position] : 0
 
-      without_order.each_with_index do |s, idx|
-        s[:order] = max_order + idx + 1
+      without_position.each_with_index do |s, idx|
+        s[:position] = max_position + idx + 1
       end
 
-      raw[replace_key] = (with_order + without_order)
+      raw[replace_key] = (with_position + without_position)
 
       raw
     end
