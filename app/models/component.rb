@@ -5,7 +5,7 @@ class Component < ApplicationRecord
   VALID_TYPES = %w(Step Ingredient)
 
   # validates :item, presence: true
-  # validates :order, uniqueness: {scope: :step}
+  # validates :position, uniqueness: {scope: :step}
 
   UNITS = %w(cups teaspoons tablespoons grams ounces)
 end

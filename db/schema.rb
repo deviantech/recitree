@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170929115634) do
+ActiveRecord::Schema.define(version: 20171009084447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20170929115634) do
     t.integer "item_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "order"
+    t.integer "position"
     t.index ["step_id"], name: "index_components_on_step_id"
   end
 
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20170929115634) do
 
   create_table "steps", force: :cascade do |t|
     t.bigint "recipe_id"
-    t.integer "order"
+    t.integer "position"
     t.integer "duration", default: 0
     t.string "duration_unit"
     t.string "action"
@@ -53,6 +53,5 @@ ActiveRecord::Schema.define(version: 20170929115634) do
     t.index ["recipe_id"], name: "index_steps_on_recipe_id"
   end
 
-  add_foreign_key "components", "steps"
   add_foreign_key "steps", "recipes"
 end
