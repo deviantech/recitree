@@ -98,9 +98,14 @@ class RecipesController < ApplicationController
         (step[:components_attributes] || []).each do |component|
           if item = component.delete(:item)
             item_type, item_id = item.split('__')
+
             if item_id && Component::VALID_TYPES.include?(item_type)
               component[:item_type] = item_type
               component[:item_id] = item_id
+            elsif item_id.nil?
+              ingredient = Ingredient.create(name: item_type)
+              component[:item_type] = ingredient.class.name
+              component[:item_id] = ingredient.id
             end
           end
         end

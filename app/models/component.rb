@@ -8,4 +8,5 @@ class Component < ApplicationRecord
   # validates :position, uniqueness: {scope: :step}
 
   UNITS = %w(cups teaspoons tablespoons grams ounces mL stalk clove package)
+
 end
