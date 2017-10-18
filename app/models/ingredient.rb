@@ -3,5 +3,7 @@ class Ingredient < ApplicationRecord
   has_many :steps, through: :components
   has_many :recipes, through: :steps
 
-  validates :name, presence: {unique: true}
+  default_scope -> { order("name") }
+
+  validates :name, presence: true, uniqueness: {case_sensitive: true}
 end

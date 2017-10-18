@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170929115634) do
+ActiveRecord::Schema.define(version: 20171009084447) do
 
   create_table "components", force: :cascade do |t|
     t.integer "step_id"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20170929115634) do
     t.integer "item_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "order"
+    t.integer "position"
     t.index ["step_id"], name: "index_components_on_step_id"
   end
 
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20170929115634) do
 
   create_table "steps", force: :cascade do |t|
     t.integer "recipe_id"
-    t.integer "order"
+    t.integer "position"
     t.integer "duration", default: 0
     t.string "duration_unit"
     t.string "action"
